@@ -1,3 +1,22 @@
+## Multi-Agent Architecture Overview
+
+This system is designed as a true multi-agent architecture.
+
+- Agents are autonomous and unaware of each other
+- Agents react to task messages using a common interface
+- The orchestrator dynamically routes tasks to agents
+- Task flow is message-driven, not hard-coded
+- Output is generated through a structured pipeline
+
+### Agent Roles
+- ProductParserAgent: Validates and normalizes raw product data
+- ContentGenerationAgent: Generates structured content from parsed data
+
+### Orchestration
+The orchestrator acts as a coordinator, dispatching tasks to agents without embedding business logic.
+
+### Output Pipeline
+Final agent outputs are written to structured JSON files using reusable logic blocks.
 # \# Applied AI Engineer Challenge – Agentic Content Genera# Applied AI Engineer Challenge – Agentic Content Generation System
 
 # 

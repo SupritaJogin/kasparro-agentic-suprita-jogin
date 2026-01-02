@@ -1,49 +1,32 @@
-"""
-ProductParserAgent
-------------------
-Responsibility:
-- Accept raw product data
-- Validate required fields
-- Normalize structure for downstream agents
-"""
+from agents.base_agent import BaseAgent
 
-class ProductParserAgent:
-    REQUIRED_FIELDS = [
-        "name",
-        "concentration",
-        "skin_type",
-        "key_ingredients",
-        "benefits",
-        "how_to_use",
-        "side_effects",
-        "price"
-    ]
+class ProductParserAgent(BaseAgent):
+    """
+    Agent responsible for validating and normalizing raw product data.
+    """
 
-    def parse(self, product_data: dict) -> dict:
-        """
-        Parses and validates raw product data.
-        Returns a clean internal representation.
-        """
-        self._validate(product_data)
+    def handle(self, task: dict):
+        # This agent only handles product parsing tasks
+        if task.get("type") != "PARSE_PRODUCT":
+            return None
 
-        parsed_data = {
-            "name": product_data["name"],
-            "concentration": product_data["concentration"],
-            "skin_type": product_data["skin_type"],
-            "ingredients": product_data["key_ingredients"],
-            "benefits": product_data["benefits"],
-            "usage": product_data["how_to_use"],
-            "side_effects": product_data["side_effects"],
-            "price": product_data["price"]
+        product = task.get("payload", {})
+
+        # Basic validation
+        required_fields = ["name", "price", "category"]
+        for field in required_fields:
+            if field not in product:
+                raise ValueError(f"Missing required field: {field}")
+
+        # Normalization step (example)
+        normalized_product = {
+            "name": product["name"].strip(),
+            "price": float(product["price"]),
+            "category": product["category"].lower()
         }
 
-        return parsed_data
-
-    def _validate(self, product_data: dict):
-        missing = [
-            field for field in self.REQUIRED_FIELDS
-            if field not in product_data
-        ]
-        if missing:
-            raise ValueError(f"Missing required fields: {missing}")
-
+        # Return a NEW message (agent autonomy)
+        return {
+            "type": "PARSED_PRODUCT",
+            "payload": normalized_product
+        }

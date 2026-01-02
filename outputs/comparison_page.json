@@ -1,1 +1,20 @@
-{} 
+{
+  "page_type": "Comparison",
+  "product_a": {
+    "name": "GlowBoost Vitamin C Serum",
+    "price": "\u20b9699",
+    "benefits": [
+      "Brightening",
+      "Fades dark spots"
+    ]
+  },
+  "product_b": {
+    "name": "RadiantGlow Serum",
+    "price": "\u20b9799",
+    "benefits": [
+      "Hydration",
+      "Skin repair"
+    ]
+  },
+  "comparison_summary": "Product A focuses on brightening while Product B targets hydration."
+}
